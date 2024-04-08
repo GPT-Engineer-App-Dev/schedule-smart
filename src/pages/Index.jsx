@@ -1,15 +1,8 @@
-// Complete the Index page component here
-// Use chakra-ui
-import { Button } from "@chakra-ui/react"; // example
-import { FaPlus } from "react-icons/fa"; // example - use react-icons/fa for icons
+import React from "react";
+import TodoList from "../components/TodoList";
 
 const Index = () => {
-  // TODO: Create the website here!
-  return (
-    <Button>
-      Hello world! <FaPlus />
-    </Button>
-  ); // example
+  return <TodoList />;
 };
 
 export default Index;
