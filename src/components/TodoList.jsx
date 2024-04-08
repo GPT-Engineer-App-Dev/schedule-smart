@@ -1,15 +1,26 @@
 import React, { useState } from "react";
-import { Box, Heading, UnorderedList, ListItem, Input, Button } from "@chakra-ui/react";
+import { Box, Heading, UnorderedList, ListItem, Input, Button, Checkbox } from "@chakra-ui/react";
 
 const TodoList = () => {
-  const [todos, setTodos] = useState(["Buy groceries", "Do laundry", "Clean the house", "Pay bills"]);
+  const [todos, setTodos] = useState([
+    { text: "Buy groceries", completed: false },
+    { text: "Do laundry", completed: false },
+    { text: "Clean the house", completed: false },
+    { text: "Pay bills", completed: false },
+  ]);
   const [inputValue, setInputValue] = useState("");
 
   const handleAddTodo = () => {
     if (inputValue.trim() !== "") {
-      setTodos([...todos, inputValue]);
+      setTodos([...todos, { text: inputValue, completed: false }]);
       setInputValue("");
     }
+  };
+
+  const handleToggleCompleted = (index) => {
+    const updatedTodos = [...todos];
+    updatedTodos[index].completed = !updatedTodos[index].completed;
+    setTodos(updatedTodos);
   };
 
   return (
@@ -23,7 +34,10 @@ const TodoList = () => {
       </Box>
       <UnorderedList spacing={3}>
         {todos.map((todo, index) => (
-          <ListItem key={index}>{todo}</ListItem>
+          <ListItem key={index} style={{ textDecoration: todo.completed ? "line-through" : "none" }}>
+            <Checkbox isChecked={todo.completed} onChange={() => handleToggleCompleted(index)} mr={2} />
+            {todo.text}
+          </ListItem>
         ))}
       </UnorderedList>
     </Box>
