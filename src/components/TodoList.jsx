@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Heading, UnorderedList, ListItem, Input, Button, Checkbox } from "@chakra-ui/react";
+import { Box, Heading, UnorderedList, ListItem, Input, Button, Checkbox, CloseButton } from "@chakra-ui/react";
 
 const TodoList = () => {
   const [todos, setTodos] = useState([
@@ -23,6 +23,11 @@ const TodoList = () => {
     setTodos(updatedTodos);
   };
 
+  const handleDeleteTodo = (index) => {
+    const updatedTodos = todos.filter((_, i) => i !== index);
+    setTodos(updatedTodos);
+  };
+
   return (
     <Box>
       <Heading as="h2" size="xl" textAlign="center" mb={4}>
@@ -37,6 +42,7 @@ const TodoList = () => {
           <ListItem key={index} style={{ textDecoration: todo.completed ? "line-through" : "none" }}>
             <Checkbox isChecked={todo.completed} onChange={() => handleToggleCompleted(index)} mr={2} />
             {todo.text}
+            <CloseButton ml={2} onClick={() => handleDeleteTodo(index)} />
           </ListItem>
         ))}
       </UnorderedList>
